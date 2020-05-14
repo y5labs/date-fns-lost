@@ -2,8 +2,8 @@
 Lost tools for date-fns including domain specific language for time manipulations and schedule operations.
 
 ```javascript
-import locale from 'date-fns/locale/en-GB'
 import { dsl, schedule } from 'date-fns-lost'
+import locale from 'date-fns/locale/en-GB'
 import { format, utcToZonedTime } from 'date-fns-tz'
 
 const fmt = (d, timeZone) =>
