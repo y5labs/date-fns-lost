@@ -44,10 +44,10 @@ const wrap = (d, tz, fn) => {
 }
 
 const add = {
-  ms: addMilliseconds,
-  s: addSeconds,
-  m: addMinutes,
-  h: addHours,
+  ms: (d, n, tz) => wrap(d, tz, d => addMilliseconds(d, n)),
+  s: (d, n, tz) => wrap(d, tz, d => addSeconds(d, n)),
+  m: (d, n, tz) => wrap(d, tz, d => addMinutes(d, n)),
+  h: (d, n, tz) => wrap(d, tz, d => addHours(d, n)),
   d: (d, n, tz) => wrap(d, tz, d => addDays(d, n)),
   w: (d, n, tz) => wrap(d, tz, d => addWeeks(d, n)),
   M: (d, n, tz) => wrap(d, tz, d => addMonths(d, n)),
@@ -55,10 +55,10 @@ const add = {
 }
 
 const sub = {
-  ms: subMilliseconds,
-  s: subSeconds,
-  m: subMinutes,
-  h: subHours,
+  ms: (d, n, tz) => wrap(d, tz, d => subMilliseconds(d, n)),
+  s: (d, n, tz) => wrap(d, tz, d => subSeconds(d, n)),
+  m: (d, n, tz) => wrap(d, tz, d => subMinutes(d, n)),
+  h: (d, n, tz) => wrap(d, tz, d => subHours(d, n)),
   d: (d, n, tz) => wrap(d, tz, d => subDays(d, n)),
   w: (d, n, tz) => wrap(d, tz, d => subWeeks(d, n)),
   M: (d, n, tz) => wrap(d, tz, d => subMonths(d, n)),
@@ -66,9 +66,9 @@ const sub = {
 }
 
 const startOf = {
-  ms: d => setMilliseconds(d, 0),
-  s: startOfSecond,
-  m: startOfMinute,
+  ms: (d, tz) => wrap(d, tz, d => setMilliseconds(d, 0)),
+  s: (d, tz) => wrap(d, tz, d => startOfSecond(d)),
+  m: (d, tz) => wrap(d, tz, d => startOfMinute(d)),
   h: (d, tz) => wrap(d, tz, d => startOfHour(d)),
   d: (d, tz) => wrap(d, tz, d => startOfDay(d)),
   w: (d, tz) => wrap(d, tz, d => startOfWeek(d)),
@@ -84,9 +84,11 @@ const wrapBoth = (d1, d2, tz, fn) => {
 }
 
 const diff = {
-  ms: differenceInMilliseconds,
-  s: differenceInSeconds,
-  m: differenceInMinutes,
+  ms: (d1, d2, tz) =>
+    wrapBoth(d1, d2, tz, (d1, d2) =>
+      differenceInMilliseconds(d1, d2)),
+  s: (d1, d2, tz) => wrapBoth(d1, d2, tz, (d1, d2) => differenceInSeconds(d1, d2)),
+  m: (d1, d2, tz) => wrapBoth(d1, d2, tz, (d1, d2) => differenceInMinutes(d1, d2)),
   h: (d1, d2, tz) => wrapBoth(d1, d2, tz, (d1, d2) => differenceInHours(d1, d2)),
   d: (d1, d2, tz) => wrapBoth(d1, d2, tz, (d1, d2) => differenceInDays(d1, d2)),
   w: (d1, d2, tz) => wrapBoth(d1, d2, tz, (d1, d2) => differenceInCalendarWeeks(d1, d2)),
