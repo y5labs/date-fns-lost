@@ -6,7 +6,7 @@ Lost tools for moment including domain specific language for time manipulations 
 import momentRange from 'moment-range'
 import momentTz from 'moment-timezone'
 const moment = momentRange.extendMoment(momentTz)
-import lost from './'
+import lost from 'date-fns-lost'
 const {
   chrono,
   spanner,
