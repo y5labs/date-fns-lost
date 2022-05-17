@@ -1,0 +1,1 @@
+export default 'YYYY-MM-DD[T]HH:mm:ss[Z]'

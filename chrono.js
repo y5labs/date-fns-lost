@@ -1,33 +1,33 @@
-import { add, sub, diff } from './arithmetic'
-
-export default (anchor, count, unit, tz) => {
-  if (!diff[unit]) throw new Error(`Unknown unit ${unit}`)
+export default (anchor, count, unit) => {
   const res = {
-    nth: n => n >= 0
-      ? add[unit](anchor, count * n, tz)
-      : sub[unit](anchor, -count * n, tz),
-    floor: d => {
-      const rel = -diff[unit](anchor, d) / count
-      const actual = res.nth(rel)
-      return actual.valueOf() > d.valueOf() ? rel - 1 : rel
+    nth: n => anchor.clone().add(count * n, unit),
+    count: d => d.diff(anchor, unit, true) / count,
+    after: d => res.nth(Math.ceil(d.diff(anchor, unit, true) / count)),
+    before: d => res.nth(Math.floor(d.diff(anchor, unit, true) / count)),
+    next: d => {
+      const current = res.count(d)
+      let next = Math.ceil(current)
+      if (next === current) next++
+      return next
     },
-    ceil: d => {
-      const rel = -diff[unit](anchor, d) / count
-      const actual = res.nth(rel)
-      return actual.valueOf() < d.valueOf() ? rel + 1 : rel
+    prev: d => {
+      const current = res.count(d)
+      let prev = Math.floor(current)
+      if (prev === current) prev--
+      return prev
     },
-    after: d => res.nth(res.ceil(d)),
-    before: d => res.nth(res.floor(d)),
     between: (start, end) => {
-      if (start.valueOf() > end.valueOf()) [start, end] = [end, start]
-      const startindex = res.ceil(start)
-      const endindex = res.floor(end)
+      if (start.isAfter(end)) [start, end] = [end, start]
+      const startindex = Math.ceil(res.count(start))
+      const endindex = res.prev(end)
       if (startindex > endindex) return []
-      return Array(endindex - startindex + 1)
-        .fill()
-        .map((_, i) => startindex + i)
-        .map(res.nth)
-    }
+      const results = []
+      for (let i = startindex; i <= endindex; i++) results.push(i)
+      return results.map(res.nth)
+    },
+    clone: () => module.exports(anchor.clone(), count, unit),
+    forward: n => anchor.add(count * n, unit),
+    backward: n => anchor.subtract(count * n, unit)
   }
   return res
 }

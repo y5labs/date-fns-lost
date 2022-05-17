@@ -1,34 +1,31 @@
 {
   "name": "date-fns-lost",
   "version": "1.0.1",
-  "description": "Lost tools for date-fns including domain specific language for time manipulations and schedule operations.",
+  "description": "Lost tools for moment including domain specific language for time manipulations and schedule operations.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --es-module-specifier-resolution=node test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tcoats/date-fns-lost.git"
   },
   "keywords": [
-    "date-fns",
     "date",
     "time",
-    "timezone",
-    "date-fns-tz"
+    "timezone"
   ],
   "author": "Thomas Coats <github@voodoolabs.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tcoats/date-fns-lost/issues"
   },
-  "peerDependencies": {
-    "date-fns": ">=2.13.0",
-    "date-fns-tz": ">=1.0.10"
-  },
   "homepage": "https://github.com/tcoats/date-fns-lost#readme",
-  "dependencies": {
-    "date-fns": "^2.13.0",
-    "date-fns-tz": "^1.0.10"
+  "devDependencies": {
+    "moment": "^2.29.3",
+    "moment-range": "^4.0.2",
+    "moment-timezone": "^0.5.34",
+    "nodemon": "^2.0.16"
   }
 }

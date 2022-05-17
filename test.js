@@ -1,8 +1,3 @@
-# Date Fns Lost
-
-Lost tools for moment including domain specific language for time manipulations and schedule operations.
-
-```javascript
 import momentRange from 'moment-range'
 import momentTz from 'moment-timezone'
 const moment = momentRange.extendMoment(momentTz)
@@ -79,4 +74,3 @@ const clip = moment.range(parsed.constants.start, parsed.constants.end)
 const segments = schedule.between(parsed.schedules, parsed.schedules.result, clip)
 for (let segment of segments)
   console.log(segment.start.format(iso8601), '—', segment.end.format(iso8601))
-```
