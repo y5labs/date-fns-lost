@@ -65,6 +65,10 @@ export default (anchor, s, tz, vars) => {
       anchor = f
     }
   }
+  else if (i < s.length && isNumber(s[i])) {
+    while (i < s.length && isAlphanumeric(s[i]))
+      anchor = anchor.add.apply(anchor, readduration())
+  }
 
   anchor = anchor.clone()
   if (tz) anchor = anchor.tz(tz)
