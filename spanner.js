@@ -66,6 +66,7 @@ export default (anchor, s, tz, vars) => {
     }
   }
 
+  anchor = anchor.clone()
   if (tz) anchor = anchor.tz(tz)
 
   while (i < s.length && isOperation(s[i])) {
