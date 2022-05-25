@@ -4,9 +4,14 @@ const isAlphanumeric = n => isNumber(n) || isAlpha(n)
 const isDef = n => isNumber(n) || isAlpha(n) || n == '_'
 const isOperation = n => n == '/' || n == '+' || n == '-' || n == '('
 const isTimezone = n => isAlpha(n) || n == '_' || n == '/'
+const isWhitespace = n => n == ' ' || n == '\t' || n == '\n'
 
 export default (anchor, s, tz, vars) => {
   let i = 0
+
+  const readwhitespace = () => {
+    while (i < s.length && isWhitespace(s[i])) i++
+  }
 
   const readdef = () => {
     let n = 0
@@ -41,10 +46,16 @@ export default (anchor, s, tz, vars) => {
   }
 
   const readduration = () => {
+    readwhitespace()
     let value = readnumber()
     if (value == '') value = 1
-    return [+value, readalpha()]
+    readwhitespace()
+    const unit = readalpha()
+    readwhitespace()
+    return [+value, unit]
   }
+
+  readwhitespace()
 
   // could start with a timezone
   if (i < s.length && s[i] == '(') {
@@ -53,6 +64,8 @@ export default (anchor, s, tz, vars) => {
     if (s[i] != ')') throw new Error('Expecting closing ) on timezone')
     i++
   }
+
+  readwhitespace()
 
   // could start with 'now' or another variable
   if (i < s.length && isAlpha(s[i])) {
@@ -69,6 +82,8 @@ export default (anchor, s, tz, vars) => {
     while (i < s.length && isAlphanumeric(s[i]))
       anchor = anchor.add.apply(anchor, readduration())
   }
+
+  readwhitespace()
 
   anchor = anchor.clone()
   if (tz) anchor = anchor.tz(tz)
@@ -95,6 +110,8 @@ export default (anchor, s, tz, vars) => {
       if (s[i] != ')') throw new Error('Expecting closing ) on timezone')
       i++
     }
+
+    readwhitespace()
   }
 
   if (i < s.length) throw new Error(`unknown format ${i} < ${s.length}`)

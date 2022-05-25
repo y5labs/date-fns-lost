@@ -74,3 +74,5 @@ const clip = moment.range(parsed.constants.start, parsed.constants.end)
 const segments = schedule.between(parsed.schedules, parsed.schedules.result, clip)
 for (let segment of segments)
   console.log(segment.start.format(iso8601), '—', segment.end.format(iso8601))
+
+console.log(spanner(moment(), ' 5d 8h '))
