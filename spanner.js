@@ -5,6 +5,7 @@ const isDef = n => isNumber(n) || isAlpha(n) || n == '_'
 const isOperation = n => n == '/' || n == '+' || n == '-' || n == '('
 const isTimezone = n => isAlpha(n) || n == '_' || n == '/'
 const isWhitespace = n => n == ' ' || n == '\t' || n == '\n'
+const isDecimal = n => n == '.'
 
 export default (anchor, s, tz, vars) => {
   let i = 0
@@ -32,6 +33,10 @@ export default (anchor, s, tz, vars) => {
   const readnumber = () => {
     let n = 0
     while (i + n < s.length && isNumber(s[i+n])) n++
+    if (i + n < s.length && isDecimal(s[i+n])) {
+      n++
+      while (i + n < s.length && isNumber(s[i+n])) n++
+    }
     const res = s.substr(i, n)
     i += n
     return res
