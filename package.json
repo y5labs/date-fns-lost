@@ -1,6 +1,6 @@
 {
   "name": "date-fns-lost",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Lost tools for moment including domain specific language for time manipulations and schedule operations.",
   "type": "module",
   "main": "index.js",
