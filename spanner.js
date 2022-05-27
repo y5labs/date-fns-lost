@@ -72,6 +72,9 @@ export default (anchor, s, tz, vars) => {
 
   readwhitespace()
 
+  anchor = anchor.clone()
+  if (tz) anchor = anchor.tz(tz)
+
   // could start with 'now' or another variable
   if (i < s.length && isAlpha(s[i])) {
     const variable = readdef()
@@ -90,8 +93,6 @@ export default (anchor, s, tz, vars) => {
 
   readwhitespace()
 
-  anchor = anchor.clone()
-  if (tz) anchor = anchor.tz(tz)
 
   while (i < s.length && isOperation(s[i])) {
     if (s[i] == '/') {
