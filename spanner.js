@@ -83,7 +83,7 @@ export default (anchor, s, tz, vars) => {
         throw new Error(`Variable ${variable} not known`)
       let f = vars[variable]
       if (typeof f == 'function') f = f(tz)
-      anchor = f
+      anchor = f.clone()
     }
   }
   else if (i < s.length && isNumber(s[i])) {
