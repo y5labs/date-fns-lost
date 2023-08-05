@@ -1,8 +1,8 @@
-import iso8601 from './iso8601'
-import dsl from './dsl'
-import spanner from './spanner'
-import schedule from './schedule'
-import chrono from './chrono'
+import iso8601 from './iso8601.js'
+import dsl from './dsl.js'
+import spanner from './spanner.js'
+import schedule from './schedule.js'
+import chrono from './chrono.js'
 
 export default moment => ({
   iso8601,

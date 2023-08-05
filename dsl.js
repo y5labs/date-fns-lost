@@ -1,5 +1,5 @@
-import spanner from './spanner'
-import iso8601 from './iso8601'
+import spanner from './spanner.js'
+import iso8601 from './iso8601.js'
 const isNumber = n => n >= '0' && n <= '9'
 const isAlpha = n => n >= 'a' && n <= 'z' || n >= 'A' && n <= 'Z'
 const isAlphanumeric = n => isNumber(n) || isAlpha(n)

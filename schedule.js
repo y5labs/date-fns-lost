@@ -1,6 +1,6 @@
-import chrono from './chrono'
-import spanner from './spanner'
-import iso8601 from './iso8601'
+import chrono from './chrono.js'
+import spanner from './spanner.js'
+import iso8601 from './iso8601.js'
 
 const cliprange = (range, clip) => {
   if (range.overlaps(clip))

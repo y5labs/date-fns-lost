@@ -1,7 +1,7 @@
 import momentRange from 'moment-range'
 import momentTz from 'moment-timezone'
 const moment = momentRange.extendMoment(momentTz)
-import lost from './'
+import lost from './index.js'
 const {
   chrono,
   spanner,
